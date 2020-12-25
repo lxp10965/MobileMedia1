@@ -1,4 +1,4 @@
-package com.xpl.mobilemedia1;
+package com.xpl.mobilemedia;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

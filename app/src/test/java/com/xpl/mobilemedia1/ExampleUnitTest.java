@@ -1,4 +1,4 @@
-package com.xpl.mobilemedia1;
+package com.xpl.mobilemedia;
 
 import org.junit.Test;
 
