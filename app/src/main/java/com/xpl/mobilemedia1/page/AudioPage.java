@@ -20,17 +20,18 @@ public class AudioPage extends BasePager {
     }
 
     @Override
-    public View initView() {
-        Log.e("TAG", "initView: ======context=="+mContext+"====textView==" +textView);
-        textView = new TextView(mContext);
+    public View initView(Context context1) {
+        Log.e("TAG", "initView: ======context=="+context1+"====textView==" +textView);
+        textView = new TextView(context1);
         textView.setTextSize(30);
         textView.setTextColor(Color.RED);
 //        textView = findViewById(R.id.audio_page);
         textView.setGravity(Gravity.CENTER);
 
-        return null;
+        return textView;
     }
 
+    @Override
     public void initData() {
         super.initData();
         LogUtil.e("本地音频的数据被初始化了。。。");

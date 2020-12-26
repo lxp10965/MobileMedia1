@@ -21,13 +21,13 @@ public class NetVideoPage extends BasePager {
     }
 
     @Override
-    public View initView() {
+    public View initView(Context mContext) {
         textView=new TextView(mContext);
         textView.setTextSize(30);
         textView.setTextColor(Color.RED);
         textView.setGravity(Gravity.CENTER);
 
-        return null;
+        return textView;
     }
 
     @Override

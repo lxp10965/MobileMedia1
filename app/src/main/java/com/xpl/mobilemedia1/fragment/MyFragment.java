@@ -33,19 +33,17 @@ public class MyFragment extends Fragment {
         super();
         this.mContext = context;
         this.position = position;
-        Log.e("TAG", "MyFragment: ======context=="+mContext+"====textView==");
-
+        Log.i("mContext", "MyFragment: " + mContext);
         addPage();
-
-        Log.i("mContext", "MyFragment: " + context.getClass());
     }
 
     private void addPage() {
+        Log.i("mContext", "addPage: " + mContext);
         basePages = new ArrayList<>();
         basePages.add(new VideoPage(mContext));//添加本地视频页面 - 0
         basePages.add(new AudioPage(mContext));//添加本地视频页面 - 1
-        basePages.add(new NetAudioPage(mContext));//添加本地视频页面 - 2
-        basePages.add(new NetVideoPage(mContext));//添加本地视频页面 - 3
+        basePages.add(new NetVideoPage(mContext));//添加本地视频页面 - 2
+        basePages.add(new NetAudioPage(mContext));//添加本地视频页面 - 3
     }
 
     public int getPosition() {

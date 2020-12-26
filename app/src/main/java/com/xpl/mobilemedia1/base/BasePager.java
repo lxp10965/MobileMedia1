@@ -22,18 +22,19 @@ public abstract class BasePager {
 
 
     public View rootView; //接收各个页面的实例
-    public boolean isInitData;
+
+    public boolean isInitData; // 只初始化一次数据
 
     public BasePager(Context context) {
-
-        rootView = initView();
+        mContext = context;
+        rootView = initView(mContext);
     }
 
     /**
      * 强制子页面实现该方法，实现想要的特定的效果
      * @return
      */
-    public abstract View initView();
+    public abstract View initView(Context mContext);
 
     /**
      * 当子页面，需要绑定数据，或者联网请求数据并且绑定的时候，重写该方法

@@ -17,24 +17,22 @@ public class VideoPage extends BasePager {
 
     public VideoPage(Context context) {
         super(context);
-        this.mContext=context;
-        Log.i("mContext", "VideoPage: "+mContext);
     }
 
     @Override
-    public View initView() {
+    public View initView(Context mContext) {
         Log.i("mContext", "VideoPage1: "+mContext);
         textView=new TextView(mContext);
         textView.setTextSize(30);
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.RED);
-        return null;
+        return textView;
     }
 
     @Override
     public void initData() {
         super.initData();
-//        textView.setText("VideoPage");
-        Log.i("mContext", "VideoPage: "+mContext.getClass());
+        textView.setText("VideoPage");
+
     }
 }
