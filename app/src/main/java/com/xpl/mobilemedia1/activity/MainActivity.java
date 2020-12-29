@@ -15,7 +15,7 @@ public class MainActivity extends FragmentActivity {
     private RadioGroup rg_bottom_tag;
 
 
-    public MainActivity(){
+    public MainActivity() {
 
     }
 
@@ -28,7 +28,9 @@ public class MainActivity extends FragmentActivity {
         rg_bottom_tag.setOnCheckedChangeListener(new MysetOnCheckedChangeListener());
         rg_bottom_tag.check(R.id.rb_video);
     }
+
     int p;
+
     private class MysetOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
 
         @Override
@@ -37,16 +39,16 @@ public class MainActivity extends FragmentActivity {
             switch (checkedId) {
                 default:
                 case R.id.rb_video:
-                    p=0;
+                    p = 0;
                     break;
                 case R.id.rb_music:
-                    p=1;
+                    p = 1;
                     break;
                 case R.id.rb_net_video:
-                    p=2;
+                    p = 2;
                     break;
                 case R.id.rb_net_music:
-                    p=3;
+                    p = 3;
                     break;
 
             }
@@ -59,7 +61,7 @@ public class MainActivity extends FragmentActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         //3.替换
-        ft.replace(R.id.fl_main_content,new MyFragment(this,p));
+        ft.replace(R.id.fl_main_content, new MyFragment(this, p));
         //4.提交事务
         ft.commit();
     }

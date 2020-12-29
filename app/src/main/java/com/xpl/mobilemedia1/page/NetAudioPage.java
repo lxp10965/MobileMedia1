@@ -32,10 +32,10 @@ public class NetAudioPage extends BasePager {
     @Override
     public void initData() {
         super.initData();
-        LogUtil.e("本地音频的数据被初始化了。。。");
+        LogUtil.e("网络音频的数据被初始化了。。。");
         //联网
         //音频内容
-        textView.setText("本地音频的内容");
+        textView.setText("网络音频的内容");
         Log.i("mContext", "NetAudioPage: "+mContext.getClass());
     }
 
