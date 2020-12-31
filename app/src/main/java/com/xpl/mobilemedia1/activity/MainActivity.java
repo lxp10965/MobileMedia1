@@ -1,9 +1,14 @@
 package com.xpl.mobilemedia1.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.xpl.mobilemedia.R;
@@ -27,7 +32,29 @@ public class MainActivity extends FragmentActivity {
         //设置RadioGroup监听
         rg_bottom_tag.setOnCheckedChangeListener(new MysetOnCheckedChangeListener());
         rg_bottom_tag.check(R.id.rb_video);
+        requestMyPermissions();
     }
+
+    private void requestMyPermissions() {
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //没有授权，编写申请权限代码
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
+        } else {
+            Log.d("TAG", "requestMyPermissions: 有写SD权限");
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //没有授权，编写申请权限代码
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+        } else {
+            Log.d("TAG", "requestMyPermissions: 有读SD权限");
+        }
+    }
+
 
     int p;
 

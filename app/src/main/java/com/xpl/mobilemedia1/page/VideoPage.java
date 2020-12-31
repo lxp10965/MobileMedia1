@@ -2,25 +2,22 @@ package com.xpl.mobilemedia1.page;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xpl.mobilemedia.R;
+import com.xpl.mobilemedia1.activity.SystemVideoPlayer;
 import com.xpl.mobilemedia1.adapter.VideoPageAdapter;
 import com.xpl.mobilemedia1.base.BasePager;
 import com.xpl.mobilemedia1.domain.MediaItem;
@@ -79,7 +76,20 @@ public class VideoPage extends BasePager {
     private class MyOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(mContext,""+position,Toast.LENGTH_SHORT).show();
+            MediaItem mediaItem= mediaItems.get(position);
+//            Toast.makeText(mContext,""+position,Toast.LENGTH_SHORT).show();
+
+            //1.调起系统所有的播放-隐式意图
+//            Intent intent=new Intent();
+//            intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
+//            mContext.startActivity(intent);
+
+
+            Intent intent=new Intent(mContext, SystemVideoPlayer.class);
+            intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
+            mContext.startActivity(intent);
+
+
         }
     }
 
@@ -100,28 +110,27 @@ public class VideoPage extends BasePager {
      */
     private void getDataFromLocal() {
         new Thread() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void run() {
                 super.run();
-                SystemClock.sleep(2000);
+//                SystemClock.sleep(2000);
                 Log.d("VideoPage", "mContext: " + mContext);
                 mediaItems = new ArrayList<>();
                 ContentResolver resolver = mContext.getContentResolver();
                 Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                String[] obj = {
+                String[] objs = {
                         MediaStore.Video.Media.DISPLAY_NAME,//视频文件在SD卡的名称
                         MediaStore.Video.Media.DURATION,//视频文件的时长
                         MediaStore.Video.Media.SIZE,//视频文件大小
                         MediaStore.Video.Media.DATA,//视频文件的绝对地址
                         MediaStore.Video.Media.ARTIST,//艺术家
                 };
-                Log.d("TAG","MediaStore.Video.Media.DATA: "+obj[3]);
-                Cursor cursor = resolver.query(uri, obj, null, null);
+                Log.d("TAG","MediaStore.Video.Media.DATA: "+objs[3]);
+                Cursor cursor = resolver.query(uri, objs, null, null);
                 Log.d("TAG", "cursor.getCount(): "+cursor.getCount() );
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
-                        //Log.e("TAG", "mediaItems: "+mediaItems.toString() );
+                        Log.e("TAG", "mediaItems: "+mediaItems.toString() );
 
                         MediaItem mediaItem = new MediaItem();
                         mediaItems.add(mediaItem);
@@ -131,6 +140,7 @@ public class VideoPage extends BasePager {
 
                         long duration = cursor.getLong(1);
                         mediaItem.setDuration(duration);
+                        Log.d("TAG", "duration: "+duration);
 
                         long size = cursor.getLong(2);
                         mediaItem.setSize(size);

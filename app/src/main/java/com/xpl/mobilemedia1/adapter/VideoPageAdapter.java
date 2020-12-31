@@ -48,7 +48,7 @@ public class VideoPageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("TAG", "getView: " +position);
+//        Log.d("TAG", "getView: " +position);
         ViewHolder viewHolder;
         if (convertView==null) {
             convertView = View.inflate(mContext, R.layout.item_video_pager, null);
