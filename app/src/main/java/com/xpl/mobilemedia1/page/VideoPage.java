@@ -48,12 +48,12 @@ public class VideoPage extends BasePager {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            if(mediaItems!=null&&mediaItems.size()>0) {
+            if (mediaItems != null && mediaItems.size() > 0) {
                 Log.d("TAG", "handleMessage: " + mediaItems.toString());
                 videoPageAdapter = new VideoPageAdapter(mContext, mediaItems);
                 list_view.setAdapter(videoPageAdapter);
                 tv_no_video.setVisibility(View.INVISIBLE);
-            }else {
+            } else {
                 tv_no_video.setVisibility(View.VISIBLE);
             }
             sv_load.setVisibility(View.INVISIBLE);
@@ -76,7 +76,7 @@ public class VideoPage extends BasePager {
     private class MyOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            MediaItem mediaItem= mediaItems.get(position);
+            MediaItem mediaItem = mediaItems.get(position);
 //            Toast.makeText(mContext,""+position,Toast.LENGTH_SHORT).show();
 
             //1.调起系统所有的播放-隐式意图
@@ -84,11 +84,10 @@ public class VideoPage extends BasePager {
 //            intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
 //            mContext.startActivity(intent);
 
-
-            Intent intent=new Intent(mContext, SystemVideoPlayer.class);
+            //调起自己的播放-显式意图
+            Intent intent = new Intent(mContext, SystemVideoPlayer.class);
             intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
             mContext.startActivity(intent);
-
 
         }
     }
@@ -125,12 +124,12 @@ public class VideoPage extends BasePager {
                         MediaStore.Video.Media.DATA,//视频文件的绝对地址
                         MediaStore.Video.Media.ARTIST,//艺术家
                 };
-                Log.d("TAG","MediaStore.Video.Media.DATA: "+objs[3]);
+                Log.d("TAG", "MediaStore.Video.Media.DATA: " + objs[3]);
                 Cursor cursor = resolver.query(uri, objs, null, null);
-                Log.d("TAG", "cursor.getCount(): "+cursor.getCount() );
+                Log.d("TAG", "cursor.getCount(): " + cursor.getCount());
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
-                        Log.e("TAG", "mediaItems: "+mediaItems.toString() );
+                        Log.e("TAG", "mediaItems: " + mediaItems.toString());
 
                         MediaItem mediaItem = new MediaItem();
                         mediaItems.add(mediaItem);
@@ -140,14 +139,14 @@ public class VideoPage extends BasePager {
 
                         long duration = cursor.getLong(1);
                         mediaItem.setDuration(duration);
-                        Log.d("TAG", "duration: "+duration);
+                        Log.d("TAG", "duration: " + duration);
 
                         long size = cursor.getLong(2);
                         mediaItem.setSize(size);
 
                         String data = cursor.getString(3);
                         mediaItem.setData(data);
-                        Log.e("TAG","data : "+data);
+                        Log.e("TAG", "data : " + data);
 
                         String artist = cursor.getString(4);
                         mediaItem.setArtast(artist);
