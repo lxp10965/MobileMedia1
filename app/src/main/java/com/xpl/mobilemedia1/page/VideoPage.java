@@ -129,7 +129,7 @@ public class VideoPage extends BasePager {
                 Log.d("TAG", "cursor.getCount(): " + cursor.getCount());
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
-                        Log.e("TAG", "mediaItems: " + mediaItems.toString());
+//                        Log.e("TAG", "mediaItems: " + mediaItems.toString());
 
                         MediaItem mediaItem = new MediaItem();
                         mediaItems.add(mediaItem);
@@ -146,7 +146,7 @@ public class VideoPage extends BasePager {
 
                         String data = cursor.getString(3);
                         mediaItem.setData(data);
-                        Log.e("TAG", "data : " + data);
+//                        Log.e("TAG", "data : " + data);
 
                         String artist = cursor.getString(4);
                         mediaItem.setArtast(artist);

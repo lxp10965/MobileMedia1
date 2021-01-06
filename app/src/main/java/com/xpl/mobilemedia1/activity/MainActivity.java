@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
 
     private RadioGroup rg_bottom_tag;
 
+    private int p;
 
     public MainActivity() {
 
@@ -55,8 +56,6 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-
-    int p;
 
     private class MysetOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
 

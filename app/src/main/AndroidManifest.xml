@@ -26,10 +26,10 @@
         <activity
             android:name="com.xpl.mobilemedia1.activity.MainActivity"
             android:launchMode="singleTask">
-
-
         </activity>
-        <activity android:name="com.xpl.mobilemedia1.activity.SystemVideoPlayer" />
+        <activity android:name="com.xpl.mobilemedia1.activity.SystemVideoPlayer"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:configChanges="keyboardHidden|screenSize|orientation"/>
     </application>
 
 </manifest>
