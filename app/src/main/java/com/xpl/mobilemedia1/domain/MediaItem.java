@@ -1,6 +1,8 @@
 package com.xpl.mobilemedia1.domain;
 
-public class MediaItem {
+import java.io.Serializable;
+
+public class MediaItem implements Serializable {
     private String name;
     private long duration;  //媒体时长
     private long size;      //媒体大小

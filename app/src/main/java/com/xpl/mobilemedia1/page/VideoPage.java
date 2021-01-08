@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -85,10 +87,17 @@ public class VideoPage extends BasePager {
 //            mContext.startActivity(intent);
 
             //调起自己的播放-显式意图
-            Intent intent = new Intent(mContext, SystemVideoPlayer.class);
-            intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
-            mContext.startActivity(intent);
+//            Intent intent = new Intent(mContext, SystemVideoPlayer.class);
+//            intent.setDataAndType(Uri.parse(mediaItem.getData()), "video/*");
+//            mContext.startActivity(intent);
 
+            //3.传递列表数据-对象-序列化
+            Intent intent = new Intent(mContext,SystemVideoPlayer.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("videolist",mediaItems);
+            intent.putExtras(bundle);
+            intent.putExtra("position",position);
+            mContext.startActivity(intent);
         }
     }
 
