@@ -5,12 +5,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,12 +23,12 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.xpl.mobilemedia.R;
 import com.xpl.mobilemedia1.domain.MediaItem;
 import com.xpl.mobilemedia1.utils.LogUtil;
 import com.xpl.mobilemedia1.utils.Utils;
+import com.xpl.mobilemedia1.view.VideoView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,15 +37,6 @@ import java.util.Date;
 public class SystemVideoPlayer extends Activity implements View.OnClickListener {
     private Uri uri;
     private VideoView videoview;
-    /*
-    检测电量
-     */
-    private static final int PROGRESS = 1;
-    /**
-     * 隐藏控制面板
-     */
-    private static final int HIDE_MEDIACONTROLLER = 2;
-
     private LinearLayout llTop;
     private TextView tvName;
     private ImageView ivBattery;
@@ -57,8 +50,23 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
     private Button btn_video_pre;
     private Button btn_video_next;
     private Button btn_video_siwch_screen;
-
     private Utils utils;
+    /*
+    检测电量
+     */
+    private static final int PROGRESS = 1;
+    /**
+     * 隐藏控制面板
+     */
+    private static final int HIDE_MEDIACONTROLLER = 2;
+    /**
+     * 默认视频宽高
+     */
+    private static final int DEFAULT_SCREEN = 1;
+    /**
+     * 全屏视频宽高
+     */
+    private static final int FULL_SCREEN = 2;
 
     /**
      * 当前视频播放的进度
@@ -93,6 +101,45 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
      * 是否显示控制面板
      */
     private boolean isShowMediaController = false;
+    /**
+     * 是否全屏
+     */
+    private boolean isFullScreen = false;
+    /**
+     * 屏幕的宽
+     */
+    private int screenWidth = 0;
+    /**
+     * 屏幕的高
+     */
+    private int screenHeight = 0;
+    /**
+     * 视频默认的宽
+     */
+    int videoWidth = 0;
+    /**
+     * 视频默认的高
+     */
+    int videoHeight = 0;
+    /**
+     * 声音状态,是否静音
+     */
+    private boolean isMute;
+
+    /**
+     * 音频管理对象
+     */
+    private AudioManager audioManager;
+
+    /**
+     * 当前声音
+     */
+    private int currentVolume;
+
+    /**
+     * 最大声音
+     */
+    private int maxVolume;
 
     private void initData() {
         utils = new Utils();
@@ -114,7 +161,9 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                Toast.makeText(SystemVideoPlayer.this, "我被双击了", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(SystemVideoPlayer.this, "我被双击了", Toast.LENGTH_SHORT).show();
+                //全屏或默认
+                setFullScreenAndDefault();
                 return super.onDoubleTap(e);
             }
 
@@ -134,6 +183,77 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
                 return super.onSingleTapConfirmed(e);
             }
         });
+
+        //得到屏幕的宽和高
+        //过时的方式
+//        screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+//        screenHeight = getWindowManager().getDefaultDisplay().getHeight();
+
+        //得到屏幕宽高的新方式
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        screenWidth = displayMetrics.widthPixels;
+        screenHeight = displayMetrics.heightPixels;
+
+        //得到系统音量
+        audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+
+        //最大音量与进度条关联
+        seekbarVoice.setMax(maxVolume);
+        //把当前音量设到进度条
+        seekbarVoice.setProgress(currentVolume);
+
+    }
+
+    /**
+     * 设置全屏或者默认
+     */
+    private void setFullScreenAndDefault() {
+        if (isFullScreen) {
+            //如果是全屏，就设为默认
+            setVideoType(DEFAULT_SCREEN);
+        } else {
+            //如果是默认就设为全屏
+            setVideoType(FULL_SCREEN);
+        }
+    }
+
+    /**
+     * @param defaultScreen
+     */
+    private void setVideoType(int defaultScreen) {
+        switch (defaultScreen) {
+            case FULL_SCREEN:
+                //设置全屏
+                videoview.setVideoSize(screenWidth, screenHeight);
+                //设置按钮状态
+                btn_video_siwch_screen.setBackgroundResource(R.drawable.btn_video_siwch_screen_default_selector);
+                isFullScreen = true;
+                break;
+            case DEFAULT_SCREEN:
+                //设置默认视频大小
+
+                int mVideoWidth = videoWidth;
+                int mVideoHeight = videoHeight;
+
+                int width = screenWidth;
+                int height = screenHeight;
+
+                // 为了兼容，我们根据长宽比调整大小
+                if (mVideoWidth * height < width * mVideoHeight) {
+                    //Log.i("@@@", "image too wide, correcting");
+                    width = height * mVideoWidth / mVideoHeight;
+                } else if (mVideoWidth * height > width * mVideoHeight) {
+                    //Log.i("@@@", "image too tall, correcting");
+                    height = width * mVideoHeight / mVideoWidth;
+                }
+                videoview.setVideoSize(width, height);
+                btn_video_siwch_screen.setBackgroundResource(R.drawable.btn_video_siwch_screen_full_selector);
+                isFullScreen = false;
+                break;
+        }
     }
 
 
@@ -232,7 +352,9 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_voice:
-                //TODO implement
+                //静音键
+                isMute = !isMute;
+                updateVolume(currentVolume, isMute);
                 break;
             case R.id.btn_swich_player:
                 //TODO implement
@@ -254,7 +376,8 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
                 playNextVideo();
                 break;
             case R.id.btn_video_siwch_screen:
-                //TODO implement
+                //切换全屏或默认
+                setFullScreenAndDefault();
                 break;
         }
         handler.removeMessages(HIDE_MEDIACONTROLLER);
@@ -431,9 +554,12 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
         videoview.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                videoWidth = mp.getVideoWidth();
+                videoHeight = mp.getVideoHeight();
                 //进入视频就播
-                videoview.start();
+//                videoview.start();
 //                Toast.makeText(SystemVideoPlayer.this, "准备好了，开始播放！", Toast.LENGTH_SHORT).show();
+                startAndPause();
                 //1.获取视频总时长
                 int duration = videoview.getDuration();
                 tvDuration.setText(utils.stringForTime(duration));
@@ -442,6 +568,12 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
                 //2.发消息
                 handler.sendEmptyMessage(PROGRESS);
 
+                //设置视频宽高
+//                videoview.setVideoSize(500,500);
+                //设置视频的真实宽高
+//                videoview.setVideoSize(mp.getVideoWidth(),mp.getVideoHeight());
+
+                setVideoType(DEFAULT_SCREEN);
             }
         });
 
@@ -466,7 +598,7 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
             }
         });
 
-        //监听seekbar
+        //监听视屏进度条seekbar
         seekbarVideo.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             /**
              * 当手指滑动的时候，会引起SeekBar进度变化，会回调这个方法
@@ -498,9 +630,58 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
              */
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER,4000);
+                handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 4000);
             }
         });
+        /**
+         * 监听音量条
+         */
+        seekbarVoice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (fromUser) {
+                    if (progress > 0) {
+                        isMute = false;
+                    } else {
+                        isMute = true;
+                    }
+                    updateVolume(progress, isMute);
+
+                }
+
+            }
+
+            //当手指触碰时回调
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                handler.removeMessages(HIDE_MEDIACONTROLLER);
+            }
+
+            //当手指离开的时候回调
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 4000);
+            }
+        });
+
+    }
+
+    /**
+     * 设置音量大小
+     *
+     * @param progress
+     * @param isMute
+     */
+    private void updateVolume(int progress, boolean isMute) {
+        if (isMute) {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);//flags: 0不显示系统音量条 、 1显示系统音量条
+            seekbarVoice.setProgress(0);
+        } else {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+            seekbarVoice.setProgress(progress);
+            currentVolume = progress;
+
+        }
     }
 
     @Override
