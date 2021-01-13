@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
 
 
@@ -23,10 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+            <!--    单例    -->
         <activity
             android:name="com.xpl.mobilemedia1.activity.MainActivity"
+
             android:launchMode="singleTask">
         </activity>
+        <!--    Fullscreen  全屏          -->
         <activity android:name="com.xpl.mobilemedia1.activity.SystemVideoPlayer"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:configChanges="keyboardHidden|screenSize|orientation"/>

@@ -2,6 +2,7 @@ package com.xpl.mobilemedia1.activity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,11 +12,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -140,6 +145,11 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
      * 最大声音
      */
     private int maxVolume;
+    /**
+     * 最大亮度
+     */
+    private int maxBrightness;
+
 
     private void initData() {
         utils = new Utils();
@@ -205,6 +215,30 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
         //把当前音量设到进度条
         seekbarVoice.setProgress(currentVolume);
 
+        //得到系统最大亮度
+        maxBrightness = getScreenBrightness(this);
+        LogUtil.d("maxBrightness : " + maxBrightness);
+
+    }
+
+    /**
+     * 1.获取系统默认屏幕亮度值 屏幕亮度值范围（0-255）
+     **/
+    private int getScreenBrightness(Context context) {
+        ContentResolver contentResolver = context.getContentResolver();
+        int defVal = 125;
+        return Settings.System.getInt(contentResolver,
+                Settings.System.SCREEN_BRIGHTNESS, defVal);
+    }
+
+    /**
+     * 2.设置 APP界面屏幕亮度值方法
+     **/
+    private void setAppScreenBrightness(int birghtessValue) {
+        Window window = getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = birghtessValue / 255.0f;
+        window.setAttributes(lp);
     }
 
     /**
@@ -221,6 +255,8 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
     }
 
     /**
+     * 设置全屏或者默认
+     *
      * @param defaultScreen
      */
     private void setVideoType(int defaultScreen) {
@@ -485,12 +521,118 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
         }
     }
 
+    //开始触碰的 X
+    private float startX;
+    //开始触碰的 Y
+    private float startY;
+    /**
+     * 屏幕的高
+     */
+    private float touchRang;
+
+    /**
+     * 当一按下的音量
+     */
+    private int mVol;
+    /**
+     * 当前屏幕亮度
+     */
+    private int mBri;
+
+    //当一按下的播放进度
+    private int mPro;
+
+    //当前视频的最大进度
+    private int maxPro;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         detector.onTouchEvent(event);
-//        showMediaController();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN://手指按下
+                startX = event.getX();
+                startY = event.getY();
+                touchRang = Math.min(screenWidth, screenHeight);
+                if (event.getX() > screenWidth / 2) {
+                    mVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+                } else if (event.getX() < screenWidth / 2) {
+                    mBri = getScreenBrightness(this);
+                }
+                mPro = videoview.getCurrentPosition();
+                maxPro = videoview.getDuration();
+                LogUtil.d("mPro : " + mPro);
+                LogUtil.d("maxPro : " + maxPro);
+
+                handler.removeMessages(HIDE_MEDIACONTROLLER);
+                break;
+            case MotionEvent.ACTION_MOVE://手指移动
+                float endX = event.getX();
+                float endY = event.getY();
+                float distanceX = startX - endX;
+                float distanceY = startY - endY;//大于0向上滑
+                if (Math.abs(startY - endY) > 5) {
+                    if (event.getX() > screenWidth * 3 / 4) {
+                        //改变声音 = （滑动屏幕的距离： 总距离）*音量最大值
+                        float delte = (distanceY / touchRang) * maxVolume;
+//                int voice = (int) (mVol+delte);
+                        int voice = (int) Math.min(Math.max(delte + mVol, 0), maxVolume);
+                        if (delte != 0) {
+                            isMute = false;
+                            updateVolume(voice, isMute);
+                        }
+                    } else if (event.getX() < screenWidth * 1 / 4) {
+//                    滑动屏幕的距离： 总距离 = 改变亮度：亮度最大值
+//                    改变亮度 = （滑动屏幕的距离： 总距离）*亮度最大值
+                        float brightness = (distanceY / touchRang) * 255;
+//                    LogUtil.d("brightness : "+brightness);
+//                            最终亮度 = 原来的 + 改变亮度；
+                        int mbrightness = (int) Math.min(Math.max(mBri + brightness, 25), 255);
+//                    LogUtil.d("mbrightness : "+mbrightness);
+//                    LogUtil.d("mBri : "+mBri);
+                        if (brightness != 0) {
+                            setAppScreenBrightness(mbrightness);
+                        }
+                    }
+                } else if (Math.abs(startX - endX) > 1) {
+                    //改变进度 = （滑动屏幕的距离： 总距离）*进度最大值
+
+                    float alterProgress = (distanceX / screenWidth) * maxPro;
+                    int mAlterProgress = (int) Math.min(Math.max(mPro - alterProgress, 0), maxPro);
+//                    LogUtil.d("mAlterProgress : " + mAlterProgress);
+                    if (alterProgress != 0) {
+                        videoview.seekTo(mAlterProgress);
+                    }
+                }
+
+                break;
+            case MotionEvent.ACTION_UP://手指松开
+
+                handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 4000);
+                break;
+        }
 
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            Toast.makeText(this, "音量减", Toast.LENGTH_SHORT).show();
+            currentVolume--;
+            updateVolume(currentVolume, false);
+            handler.removeMessages(HIDE_MEDIACONTROLLER);
+            handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 4000);
+            return false;
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            Toast.makeText(this, "音量加", Toast.LENGTH_SHORT).show();
+            currentVolume++;
+            updateVolume(currentVolume, false);
+            handler.removeMessages(HIDE_MEDIACONTROLLER);
+            handler.sendEmptyMessageDelayed(HIDE_MEDIACONTROLLER, 4000);
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**
@@ -528,7 +670,7 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
                     tvSystemTime.setText(getSystemTime());
 
                     handler.removeMessages(PROGRESS);
-                    handler.sendEmptyMessageDelayed(PROGRESS, 1000);
+                    handler.sendEmptyMessageDelayed(PROGRESS, 100);
                     break;
             }
         }
@@ -608,8 +750,9 @@ public class SystemVideoPlayer extends Activity implements View.OnClickListener 
              */
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                mProgress = progress;
-                LogUtil.d("mProgress" + mProgress);
+                mProgress = progress;
+                LogUtil.d("progress" + progress);
+
                 if (fromUser) {
                     videoview.seekTo(progress);
                 }
