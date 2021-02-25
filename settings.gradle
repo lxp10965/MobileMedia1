@@ -1,3 +1,5 @@
+include ':vitamio-sample'
+include ':vitamio'
 include ':startallplayer'
 include ':app'
 rootProject.name = "MobileMedia1"

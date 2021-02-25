@@ -1,0 +1,226 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.vov.vitamio.demo"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+7-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:7:5-9:41
+8        android:minSdkVersion="11"
+8-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:8:9-34
+9        android:targetSdkVersion="22" />
+9-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:9:9-38
+10
+11    <uses-permission android:name="android.permission.WAKE_LOCK" />
+11-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:11:5-68
+11-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:11:22-65
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:12:5-67
+12-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:12:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:13:5-79
+13-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:13:22-76
+14    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+14-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:14:5-80
+14-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:14:22-77
+15    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+15-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:15:5-76
+15-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:15:22-73
+16    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+16-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:16:5-75
+16-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:16:22-72
+17
+18    <application
+18-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:18:5-112:19
+19        android:allowBackup="false"
+19-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:19:9-36
+20        android:debuggable="true"
+21        android:icon="@drawable/ic_launcher"
+21-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:20:9-45
+22        android:label="@string/vitamio_demo_name"
+22-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:21:9-50
+23        android:testOnly="true" >
+24
+25        <!-- Don't forgot InitActivity -->
+26        <activity
+26-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:24:9-29:63
+27            android:name="io.vov.vitamio.activity.InitActivity"
+27-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:25:13-64
+28            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+28-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:26:13-113
+29            android:launchMode="singleTop"
+29-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:27:13-43
+30            android:theme="@android:style/Theme.NoTitleBar"
+30-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:28:13-60
+31            android:windowSoftInputMode="stateAlwaysHidden" />
+31-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:29:13-60
+32        <activity android:name="io.vov.vitamio.demo.VitamioListActivity" >
+32-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:30:9-37:20
+32-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:30:19-54
+33            <intent-filter>
+33-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:31:13-36:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:32:17-69
+34-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:32:25-66
+35
+36                <category android:name="android.intent.category.DEFAULT" />
+36-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:17-76
+36-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:27-73
+37                <category android:name="android.intent.category.LAUNCHER" />
+37-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:35:17-77
+37-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:35:27-74
+38            </intent-filter>
+39        </activity>
+40        <activity
+40-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:38:9-41:20
+41            android:name="io.vov.vitamio.demo.MediaPlayerDemo"
+41-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:39:13-44
+42            android:label="Media/MediaPlayer" >
+42-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:40:13-46
+43        </activity>
+44        <activity
+44-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:42:9-71:20
+45            android:name="io.vov.vitamio.demo.VideoViewDemo"
+45-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:43:13-42
+46            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+46-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:44:13-113
+47            android:label="Media/VideoView" >
+47-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:45:13-44
+48            <intent-filter>
+48-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:47:13-54:29
+49                <action android:name="android.intent.action.VIEW" />
+49-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:17-69
+49-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:25-66
+50
+51                <category android:name="android.intent.category.DEFAULT" />
+51-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:17-76
+51-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:27-73
+52                <category android:name="android.intent.category.BROWSABLE" />
+52-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:51:17-78
+52-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:51:27-75
+53
+54                <data android:scheme="rtsp" />
+54-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+54-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:23-44
+55            </intent-filter>
+56            <intent-filter>
+56-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:55:13-60:29
+57                <action android:name="android.intent.action.VIEW" />
+57-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:17-69
+57-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:25-66
+58
+59                <category android:name="android.intent.category.DEFAULT" />
+59-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:17-76
+59-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:27-73
+60
+61                <data android:mimeType="video/*" />
+61-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+61-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+62                <data android:mimeType="application/sdp" />
+62-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+62-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+63            </intent-filter>
+64            <intent-filter>
+64-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:61:13-70:29
+65                <action android:name="android.intent.action.VIEW" />
+65-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:17-69
+65-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:48:25-66
+66
+67                <category android:name="android.intent.category.DEFAULT" />
+67-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:17-76
+67-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:34:27-73
+68                <category android:name="android.intent.category.BROWSABLE" />
+68-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:51:17-78
+68-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:51:27-75
+69
+70                <data android:scheme="http" />
+70-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+70-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:23-44
+71                <data android:mimeType="video/mp4" />
+71-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+71-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+72                <data android:mimeType="video/3gp" />
+72-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+72-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+73                <data android:mimeType="video/3gpp" />
+73-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+73-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+74                <data android:mimeType="video/3gpp2" />
+74-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:53:17-47
+74-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:58:23-49
+75            </intent-filter>
+76        </activity>
+77        <activity
+77-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:72:9-75:20
+78            android:name="io.vov.vitamio.demo.MediaPlayerDemo_Video"
+78-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:73:13-50
+79            android:label="Media/MediaPlayer" >
+79-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:74:13-46
+80        </activity>
+81        <activity
+81-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:76:9-79:20
+82            android:name="io.vov.vitamio.demo.MediaPlayerDemo_setSurface"
+82-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:77:13-55
+83            android:label="Media/MediaPlayer" >
+83-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:78:13-46
+84        </activity>
+85        <activity
+85-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:80:9-83:20
+86            android:name="io.vov.vitamio.demo.MediaPlayerDemo_Audio"
+86-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:81:13-50
+87            android:label="Media/MediaPlayer" >
+87-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:82:13-46
+88        </activity>
+89        <activity
+89-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:84:9-87:20
+90            android:name="io.vov.vitamio.demo.MediaMetadataRetrieverDemo"
+90-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:85:13-55
+91            android:label="Media/MediaMetadata" >
+91-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:86:13-48
+92        </activity>
+93        <activity
+93-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:88:9-91:20
+94            android:name="io.vov.vitamio.demo.MediaPlayerSubtitle"
+94-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:89:13-48
+95            android:label="@string/title_activity_media_player_subtitle" >
+95-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:90:13-73
+96        </activity>
+97        <activity
+97-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:92:9-95:20
+98            android:name="io.vov.vitamio.demo.VideoViewSubtitle"
+98-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:93:13-46
+99            android:label="@string/title_activity_video_view_subtitle" >
+99-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:94:13-71
+100        </activity>
+101        <activity
+101-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:96:9-99:20
+102            android:name="io.vov.vitamio.demo.VideoSubtitleList"
+102-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:97:13-46
+103            android:label="@string/title_activity_video_subtitle_list" >
+103-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:98:13-71
+104        </activity>
+105        <activity
+105-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:100:9-103:20
+106            android:name="io.vov.vitamio.demo.VideoViewBuffer"
+106-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:101:13-44
+107            android:label="@string/title_activity_video_buffer" >
+107-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:102:13-64
+108        </activity>
+109
+110        <meta-data
+110-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:104:10-107:21
+111            android:name="UMENG_APPKEY"
+111-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:105:13-40
+112            android:value="563c244467e58e53e60005cc" >
+112-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:106:13-53
+113        </meta-data>
+114        <meta-data
+114-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:108:9-111:21
+115            android:name="UMENG_CHANNEL"
+115-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:109:13-41
+116            android:value="demo" >
+116-->F:\yyb\MobileMedia1\vitamio-sample\AndroidManifest.xml:110:13-33
+117        </meta-data>
+118    </application>
+119
+120</manifest>

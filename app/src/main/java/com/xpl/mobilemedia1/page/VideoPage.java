@@ -134,8 +134,13 @@ public class VideoPage extends BasePager {
                         MediaStore.Video.Media.ARTIST,//艺术家
                 };
                 Log.d("TAG", "MediaStore.Video.Media.DATA: " + objs[3]);
-                Cursor cursor = resolver.query(uri, objs, null, null);
-                Log.d("TAG", "cursor.getCount(): " + cursor.getCount());
+                Cursor cursor = null;
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                    cursor = resolver.query(uri, objs, null, null);
+//                }else {
+                    cursor = resolver.query(uri, objs, null, null,null);
+//                }
+//                Log.d("TAG", "cursor.getCount(): " + cursor.getCount());
                 if (cursor != null) {
                     while (cursor.moveToNext()) {
 //                        Log.e("TAG", "mediaItems: " + mediaItems.toString());
