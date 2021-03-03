@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.xpl.mobilemedia1.base.BasePager;
 import com.xpl.mobilemedia1.page.AudioPage;
 import com.xpl.mobilemedia1.page.NetAudioPage;
-import com.xpl.mobilemedia1.page.NetVideoPage;
+import com.xpl.mobilemedia1.page.NetVideoPager;
 import com.xpl.mobilemedia1.page.VideoPage;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class MyFragment extends Fragment {
         basePages = new ArrayList<>();
         basePages.add(new VideoPage(mContext));//添加本地视频页面 - 0
         basePages.add(new AudioPage(mContext));//添加本地视频页面 - 1
-        basePages.add(new NetVideoPage(mContext));//添加本地视频页面 - 2
+        basePages.add(new NetVideoPager(mContext));//添加本地视频页面 - 2
         basePages.add(new NetAudioPage(mContext));//添加本地视频页面 - 3
     }
 

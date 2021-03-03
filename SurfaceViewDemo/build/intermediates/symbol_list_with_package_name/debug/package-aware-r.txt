@@ -1,0 +1,17 @@
+com.example.videotest
+drawable ic_launcher
+id button_play
+id button_replay
+id button_screenShot
+id button_videoSize
+id progressBar
+id seekbar
+id surfaceView
+id textView_showTime
+id videoView
+layout activity_main
+layout activity_surface_view_test
+string app_name
+string hello_world
+style AppBaseTheme
+style AppTheme

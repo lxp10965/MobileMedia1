@@ -1,4 +1,0 @@
-#Thu Feb 25 10:15:11 CST 2021
-base.0=F\:\\yyb\\MobileMedia1\\vitamio-sample\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

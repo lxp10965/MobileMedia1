@@ -1,3 +1,8 @@
+include ':binderService'
+include ':AgoraDemo'
+include ':SurfaceViewDemo'
+include ':xUtils3_sample'
+include ':xutils'
 include ':vitamio-sample'
 include ':vitamio'
 include ':startallplayer'

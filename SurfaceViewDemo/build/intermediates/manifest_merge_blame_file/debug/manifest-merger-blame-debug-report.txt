@@ -1,0 +1,72 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.videotest"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+7-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:7:5-9:41
+8        android:minSdkVersion="14"
+8-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:8:9-35
+9        android:targetSdkVersion="21" />
+9-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:9:9-38
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:11:5-67
+11-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:11:22-64
+12    <uses-permission android:name="android.permission.WAKE_LOCK" />
+12-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:12:5-68
+12-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:12:22-65
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:13:5-81
+13-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:13:22-78
+14    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+14-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:14:5-84
+14-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:14:22-81
+15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+15-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:15:5-80
+15-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:15:22-77
+16
+17    <application
+17-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:17:5-38:19
+18        android:allowBackup="true"
+18-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:18:9-35
+19        android:debuggable="true"
+20        android:icon="@drawable/ic_launcher"
+20-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:19:9-45
+21        android:label="@string/app_name"
+21-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:20:9-41
+22        android:testOnly="true"
+23        android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" >
+23-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:21:9-73
+24        <activity
+24-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:22:9-26:20
+25            android:name="com.example.videotest.MainActivity"
+25-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:23:13-62
+26            android:label="@string/app_name"
+26-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:24:13-45
+27            android:screenOrientation="sensor" >
+27-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:25:13-47
+28        </activity>
+29        <activity
+29-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:27:9-37:20
+30            android:name="com.example.videotest.SurfaceViewTestActivity"
+30-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:28:13-73
+31            android:configChanges="keyboardHidden|orientation|screenSize"
+31-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:30:13-74
+32            android:screenOrientation="sensorLandscape" >
+32-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:29:4-47
+33            <intent-filter>
+33-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:32:13-36:29
+34                <action android:name="android.intent.action.MAIN" />
+34-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:33:17-69
+34-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:33:25-66
+35
+36                <category android:name="android.intent.category.LAUNCHER" />
+36-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:35:17-77
+36-->F:\yyb\MobileMedia1\SurfaceViewDemo\src\main\AndroidManifest.xml:35:27-74
+37            </intent-filter>
+38        </activity>
+39    </application>
+40
+41</manifest>

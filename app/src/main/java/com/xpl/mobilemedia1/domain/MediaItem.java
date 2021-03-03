@@ -9,6 +9,38 @@ public class MediaItem implements Serializable {
     private String data;    //媒体路劲
     private String artast;  //媒体艺术家
 
+    private String imageUrl;  //网络图片路径
+    private String desc;  //媒体简介
+
+    @Override
+    public String toString() {
+        return "MediaItem{" +
+                "name='" + name + '\'' +
+                ", duration=" + duration +
+                ", size=" + size +
+                ", data='" + data + '\'' +
+                ", artast='" + artast + '\'' +
+                ", desc='" + desc + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }
@@ -49,14 +81,5 @@ public class MediaItem implements Serializable {
         this.artast = artast;
     }
 
-    @Override
-    public String toString() {
-        return "MediaItem{" +
-                "name='" + name + '\'' +
-                ", duration=" + duration +
-                ", size=" + size +
-                ", data='" + data + '\'' +
-                ", artast='" + artast + '\'' +
-                '}';
-    }
+
 }

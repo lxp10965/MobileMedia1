@@ -472,6 +472,7 @@ public class VitamioVideoPlayer extends Activity implements View.OnClickListener
                 break;
             case R.id.btn_swich_player:
                 //TODO implement
+                showSwichPlayerDialog();
                 break;
             case R.id.btn_exit:
                 //TODO implement
